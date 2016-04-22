@@ -1,6 +1,10 @@
 #!/bin/bash
 
+MYWD=$(dirname $0)
+
 TMP=$(mktemp -d /tmp/i3setup.XXXXXXX)
+
+PHOTOS="~/Bilder"
 
 INSTALLER="echo"
 if which dnf
@@ -15,7 +19,9 @@ fi
 
 $INSTALLER install i3 feh lxappearance git
 
-cp 
+mkdir -p ~/.config/i3
+ln -s ~/.config/i3 ~/.i3
+ln -s ${MYWD}/../i3/config ~/.config/i3/config
 
 pushd $TMP
 git clone git@github.com:supermarin/YosemiteSanFranciscoFont.git fontsf
@@ -32,4 +38,7 @@ cp source-sans-pro-2.020R-ro-1.075R-it/OTF/*.otf ~/.local/share/fonts/
 popd
 
 #update font cache
-fc-cache 
+fc-cache
+
+mkdir -p $PHOTOS
+cp "${MYWD}/../wallpaper/floor-1256804.jpg" $PHOTOS/wallpaper.jpg
